@@ -1,0 +1,142 @@
+@{
+    ViewData["Title"] = "Calendar";
+    var selectedDate = (DateTime)ViewData["SelectedDate"];
+    var startOfWeek = (DateTime)ViewData["StartOfWeek"];
+    var rooms = ViewData["Rooms"] as List<Project001.Models.Entities.Room>;
+    var bookings = ViewData["Bookings"] as List<Project001.Models.Entities.Booking>;
+}
+
+<div class="bg-white shadow rounded-lg">
+    <div class="px-6 py-4 border-b border-gray-200">
+        <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-semibold text-gray-900">Meeting Calendar</h1>
+            <div class="flex space-x-2">
+                <a asp-action="Create" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                    New Booking
+                </a>
+                <a asp-action="Index" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                    List View
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Week Navigation -->
+    <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+            <a asp-action="Calendar" asp-route-date="@startOfWeek.AddDays(-7).ToString("yyyy-MM-dd")" 
+               class="bg-white border border-gray-300 rounded-md px-3 py-2 text-sm hover:bg-gray-50 transition-colors duration-200">
+                ← Previous Week
+            </a>
+            
+            <div class="text-center">
+                <h2 class="text-lg font-semibold text-gray-900">
+                    @startOfWeek.ToString("MMM dd") - @startOfWeek.AddDays(6).ToString("MMM dd, yyyy")
+                </h2>
+                <form method="get" class="mt-2">
+                    <input type="date" name="date" value="@selectedDate.ToString("yyyy-MM-dd")" 
+                           onchange="this.form.submit()"
+                           class="border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </form>
+            </div>
+            
+            <a asp-action="Calendar" asp-route-date="@startOfWeek.AddDays(7).ToString("yyyy-MM-dd")" 
+               class="bg-white border border-gray-300 rounded-md px-3 py-2 text-sm hover:bg-gray-50 transition-colors duration-200">
+                Next Week →
+            </a>
+        </div>
+    </div>
+
+    <!-- Calendar Grid -->
+    <div class="p-6">
+        <div class="overflow-x-auto">
+            <table class="min-w-full">
+                <thead>
+                    <tr class="border-b border-gray-200">
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-500 w-32">Time</th>
+                        @for (int i = 0; i < 7; i++)
+                        {
+                            var day = startOfWeek.AddDays(i);
+                            <th class="px-4 py-3 text-center text-sm font-medium text-gray-500 min-w-32">
+                                <div>@day.ToString("ddd")</div>
+                                <div class="text-lg font-semibold text-gray-900">@day.ToString("dd")</div>
+                            </th>
+                        }
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @for (int hour = 8; hour <= 18; hour++)
+                    {
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 text-sm text-gray-900 font-medium border-r border-gray-200">
+                                @DateTime.Today.AddHours(hour).ToString("h:mm tt")
+                            </td>
+                            @for (int day = 0; day < 7; day++)
+                            {
+                                var currentDate = startOfWeek.AddDays(day);
+                                var timeSlot = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, hour, 0, 0);
+                                var timeSlotEnd = timeSlot.AddHours(1);
+                                
+                                var slotBookings = bookings?.Where(b => 
+                                    b.StartDateTime.Date == currentDate.Date &&
+                                    b.StartDateTime.Hour <= hour &&
+                                    b.EndDateTime.Hour > hour).ToList() ?? new List<Project001.Models.Entities.Booking>();
+
+                                <td class="px-2 py-3 text-sm relative border-r border-gray-200">
+                                    @if (slotBookings.Any())
+                                    {
+                                        @foreach (var booking in slotBookings)
+                                        {
+                                            <div class="mb-1 p-1 bg-blue-100 border-l-2 border-blue-500 rounded text-xs">
+                                                <div class="font-medium text-blue-900">@booking.Title</div>
+                                                <div class="text-blue-700">@booking.Room.Name</div>
+                                                <div class="text-blue-600">@booking.StartDateTime.ToString("h:mm") - @booking.EndDateTime.ToString("h:mm")</div>
+                                            </div>
+                                        }
+                                    }
+                                    else if (timeSlot > DateTime.Now)
+                                    {
+                                        <button onclick="quickBook('@timeSlot.ToString("yyyy-MM-ddTHH:mm:ss")')" 
+                                                class="w-full h-8 text-xs text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors duration-200">
+                                            + Book
+                                        </button>
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+        <div class="flex items-center justify-between text-sm text-gray-600">
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center">
+                    <div class="w-4 h-4 bg-blue-100 border-l-2 border-blue-500 rounded mr-2"></div>
+                    <span>Booked</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-4 h-4 bg-gray-100 rounded mr-2"></div>
+                    <span>Available</span>
+                </div>
+            </div>
+            <div class="text-xs text-gray-500">
+                Click on an available time slot to create a new booking
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function quickBook(startTime) {
+    window.location.href = '/Bookings/Create?startTime=' + encodeURIComponent(startTime);
+}
+
+// Auto-refresh calendar every 5 minutes
+setInterval(function() {
+    location.reload();
+}, 300000);
+</script>

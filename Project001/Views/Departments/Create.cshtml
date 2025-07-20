@@ -1,0 +1,137 @@
+@model Project001.Models.Entities.Department
+
+@{
+    ViewData["Title"] = "Create Department";
+}
+
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h1 class="text-2xl font-semibold text-gray-900">Create New Department</h1>
+        </div>
+
+        <form asp-action="Create" class="p-6">
+            <div asp-validation-summary="ModelOnly" class="text-red-600 mb-4"></div>
+            
+            <div class="space-y-6">
+                <!-- Basic Information -->
+                <div>
+                    <label asp-for="Name" class="block text-sm font-medium text-gray-700 mb-1">Department Name (English)</label>
+                    <input asp-for="Name" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter department name in English" />
+                    <span asp-validation-for="Name" class="text-red-600 text-sm"></span>
+                </div>
+
+                <!-- Multi-language Names -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label asp-for="NameTh" class="block text-sm font-medium text-gray-700 mb-1">Department Name (Thai)</label>
+                        <input asp-for="NameTh" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="ชื่อแผนก (ไทย)" />
+                        <span asp-validation-for="NameTh" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <div>
+                        <label asp-for="NameJa" class="block text-sm font-medium text-gray-700 mb-1">Department Name (Japanese)</label>
+                        <input asp-for="NameJa" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="部署名 (日本語)" />
+                        <span asp-validation-for="NameJa" class="text-red-600 text-sm"></span>
+                    </div>
+                </div>
+
+                <!-- Color Code -->
+                <div>
+                    <label asp-for="ColorCode" class="block text-sm font-medium text-gray-700 mb-1">Department Color</label>
+                    <div class="flex items-center space-x-3">
+                        <input asp-for="ColorCode" type="color" class="h-10 w-20 border border-gray-300 rounded-md cursor-pointer" />
+                        <input asp-for="ColorCode" type="text" class="flex-1 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="#2563EB" />
+                    </div>
+                    <span asp-validation-for="ColorCode" class="text-red-600 text-sm"></span>
+                    <p class="text-sm text-gray-500 mt-1">This color will be used to identify the department in calendars and reports</p>
+                </div>
+
+                <!-- Status -->
+                <div class="flex items-center">
+                    <input asp-for="IsActive" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked />
+                    <label asp-for="IsActive" class="ml-2 text-sm text-gray-700">Department is active</label>
+                </div>
+
+                <!-- Preview -->
+                <div id="colorPreview" class="p-4 border border-gray-200 rounded-md">
+                    <h3 class="text-sm font-medium text-gray-700 mb-2">Preview</h3>
+                    <div class="flex items-center">
+                        <div id="previewDot" class="w-4 h-4 rounded-full mr-3" style="background-color: #2563EB;"></div>
+                        <span id="previewName" class="text-gray-900">Department Name</span>
+                    </div>
+                </div>
+
+                <!-- Information Box -->
+                <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-blue-800">Department Information</h3>
+                            <div class="mt-2 text-sm text-blue-700">
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Department names in multiple languages help international teams</li>
+                                    <li>The color code is used for visual identification in calendars and reports</li>
+                                    <li>Users can be assigned to departments for better organization</li>
+                                    <li>Inactive departments won't appear in user assignment options</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-4 mt-8 pt-6 border-t border-gray-200">
+                <a asp-action="Index" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                    Cancel
+                </a>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                    Create Department
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const nameInput = document.getElementById('Name');
+    const colorInput = document.getElementById('ColorCode');
+    const previewDot = document.getElementById('previewDot');
+    const previewName = document.getElementById('previewName');
+
+    function updatePreview() {
+        const name = nameInput.value || 'Department Name';
+        const color = colorInput.value || '#2563EB';
+        
+        previewName.textContent = name;
+        previewDot.style.backgroundColor = color;
+    }
+
+    nameInput.addEventListener('input', updatePreview);
+    colorInput.addEventListener('input', updatePreview);
+    
+    // Sync color picker with text input
+    const colorInputs = document.querySelectorAll('input[name="ColorCode"]');
+    colorInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            colorInputs.forEach(other => {
+                if (other !== this) {
+                    other.value = this.value;
+                }
+            });
+            updatePreview();
+        });
+    });
+
+    updatePreview();
+});
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

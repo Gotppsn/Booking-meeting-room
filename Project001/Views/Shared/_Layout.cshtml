@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html lang="@System.Globalization.CultureInfo.CurrentCulture.Name">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @Localizer["MeetingRoomBooking"]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    @{
+        var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+        var fontFamily = currentCulture switch
+        {
+            "th" => "font-family: 'Noto Sans Thai', 'Inter', system-ui, sans-serif;",
+            "ja" => "font-family: 'Noto Sans JP', 'Inter', system-ui, sans-serif;",
+            _ => "font-family: 'Inter', system-ui, sans-serif;"
+        };
+    }
+    @if (currentCulture == "th")
+    {
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    }
+    else if (currentCulture == "ja")
+    {
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    }
+    else
+    {
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    }
+    <style>
+        body { @Html.Raw(fontFamily) }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                fontFamily: {
+                    'sans': @Html.Raw(currentCulture switch
+                    {
+                        "th" => "['Noto Sans Thai', 'Inter', 'system-ui', 'sans-serif']",
+                        "ja" => "['Noto Sans JP', 'Inter', 'system-ui', 'sans-serif']",
+                        _ => "['Inter', 'system-ui', 'sans-serif']"
+                    })
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo and Brand -->
+                <div class="flex items-center">
+                    <a asp-controller="Home" asp-action="Index" class="flex items-center">
+                        <svg class="w-8 h-8 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                        <span class="text-xl font-semibold text-gray-900">@Localizer["MeetingRoomBooking"]</span>
+                    </a>
+                </div>
+
+                <!-- Navigation Links -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a asp-controller="Home" asp-action="Index" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                            @Localizer["Dashboard"]
+                        </a>
+                        <a asp-controller="Rooms" asp-action="Index" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                            @Localizer["Rooms"]
+                        </a>
+                        <a asp-controller="Bookings" asp-action="Index" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                            @Localizer["MyBookings"]
+                        </a>
+                        <a asp-controller="Bookings" asp-action="Calendar" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                            @Localizer["Calendar"]
+                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="relative">
+                                <button class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center" onclick="toggleDropdown('admin-dropdown')">
+                                    @Localizer["Admin"]
+                                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </button>
+                                <div id="admin-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                                    <a asp-controller="Users" asp-action="Index" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">@Localizer["UserManagement"]</a>
+                                    <a asp-controller="Departments" asp-action="Index" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">@Localizer["Departments"]</a>
+                                    <a asp-controller="Rooms" asp-action="Create" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">@Localizer["AddRoom"]</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Language Selector -->
+                        <div class="relative">
+                            <button class="text-gray-600 hover:text-gray-900 p-2 rounded-md transition-colors duration-200" 
+                                    onclick="toggleDropdown('language-dropdown')" 
+                                    aria-label="@Localizer["SelectLanguage"]" 
+                                    aria-expanded="false" 
+                                    aria-haspopup="true"
+                                    id="language-selector-button"
+                                    title="Current: @System.Globalization.CultureInfo.CurrentCulture.Name">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                                </svg>
+                                <span class="sr-only">@Localizer["SelectLanguage"]</span>
+                                <!-- Debug: Show current culture -->
+                                <span class="ml-1 text-xs">@System.Globalization.CultureInfo.CurrentCulture.Name.ToUpper()</span>
+                            </button>
+                            <div id="language-dropdown" class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-1 z-50 hidden" role="menu" aria-labelledby="language-selector-button">
+                                <a asp-controller="Language" asp-action="SetLanguage" asp-route-culture="en" asp-route-returnUrl="@($"{Context.Request.Path}{Context.Request.QueryString}")"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 @(System.Globalization.CultureInfo.CurrentCulture.Name == "en" ? "bg-blue-50 text-blue-700" : "")"
+                                   role="menuitem">
+                                    🇺🇸 @Localizer["English"]
+                                </a>
+                                <a asp-controller="Language" asp-action="SetLanguage" asp-route-culture="th" asp-route-returnUrl="@($"{Context.Request.Path}{Context.Request.QueryString}")"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 @(System.Globalization.CultureInfo.CurrentCulture.Name == "th" ? "bg-blue-50 text-blue-700" : "")"
+                                   role="menuitem">
+                                    🇹🇭 @Localizer["ThaiLanguage"]
+                                </a>
+                                <a asp-controller="Language" asp-action="SetLanguage" asp-route-culture="ja" asp-route-returnUrl="@($"{Context.Request.Path}{Context.Request.QueryString}")"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 @(System.Globalization.CultureInfo.CurrentCulture.Name == "ja" ? "bg-blue-50 text-blue-700" : "")"
+                                   role="menuitem">
+                                    🇯🇵 @Localizer["JapaneseLanguage"]
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- User Profile -->
+                        <div class="relative">
+                            <button class="flex items-center text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" onclick="toggleDropdown('user-dropdown')">
+                                <div class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs mr-2">
+                                    @User.Identity.Name?.Substring(0, 1).ToUpper()
+                                </div>
+                                @User.Identity.Name
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div id="user-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                                <a asp-controller="Profile" asp-action="Index" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">@Localizer["Profile"]</a>
+                                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home")" method="post">
+                                    <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">@Localizer["SignOut"]</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="flex items-center space-x-4">
+                        <a asp-area="Identity" asp-page="/Account/Login" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                            @Localizer["SignIn"]
+                        </a>
+                        <a asp-area="Identity" asp-page="/Account/Register" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                            @Localizer["SignUp"]
+                        </a>
+                    </div>
+                }
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-gray-600 hover:text-gray-900 p-2 rounded-md" onclick="toggleMobileMenu()">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden border-t border-gray-200 pt-4 pb-3">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="space-y-1">
+                        <a asp-controller="Home" asp-action="Index" class="block px-3 py-2 text-gray-600 hover:text-gray-900 rounded-md text-sm font-medium">@Localizer["Dashboard"]</a>
+                        <a asp-controller="Rooms" asp-action="Index" class="block px-3 py-2 text-gray-600 hover:text-gray-900 rounded-md text-sm font-medium">@Localizer["Rooms"]</a>
+                        <a asp-controller="Bookings" asp-action="Index" class="block px-3 py-2 text-gray-600 hover:text-gray-900 rounded-md text-sm font-medium">@Localizer["MyBookings"]</a>
+                        <a asp-controller="Bookings" asp-action="Calendar" class="block px-3 py-2 text-gray-600 hover:text-gray-900 rounded-md text-sm font-medium">@Localizer["Calendar"]</a>
+                    </div>
+                }
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center text-sm text-gray-500">
+                @Localizer["AllRightsReserved"]
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            const button = dropdown?.previousElementSibling;
+            const isHidden = dropdown?.classList.contains('hidden');
+            
+            // Close all other dropdowns
+            document.querySelectorAll('[id$="-dropdown"]').forEach(d => {
+                if (d.id !== dropdownId) {
+                    d.classList.add('hidden');
+                    // Update aria-expanded for other buttons
+                    const otherButton = d.previousElementSibling;
+                    if (otherButton) {
+                        otherButton.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            });
+            
+            // Toggle the clicked dropdown
+            if (dropdown) {
+                if (isHidden) {
+                    dropdown.classList.remove('hidden');
+                    if (button) button.setAttribute('aria-expanded', 'true');
+                } else {
+                    dropdown.classList.add('hidden');
+                    if (button) button.setAttribute('aria-expanded', 'false');
+                }
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            const isDropdownButton = event.target.closest('button[onclick*="toggleDropdown"]');
+            if (!isDropdownButton) {
+                document.querySelectorAll('[id$="-dropdown"]').forEach(dropdown => {
+                    dropdown.classList.add('hidden');
+                });
+            }
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

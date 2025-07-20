@@ -1,0 +1,200 @@
+@model Project001.Models.ViewModels.EditUserViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Edit User"];
+}
+
+<div class="container mx-auto px-4 py-8">
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">@Localizer["Edit User"]</h1>
+        <a href="@Url.Action("Details", new { id = Model.Id })" class="text-blue-600 hover:text-blue-800">
+            ← @Localizer["Back to Details"]
+        </a>
+    </div>
+
+    <div class="max-w-2xl">
+        <div class="bg-white shadow rounded-lg p-6">
+            <form asp-action="Edit" method="post" class="space-y-6">
+                <div asp-validation-summary="ModelOnly" class="text-red-600"></div>
+                
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="CurrentRoles" />
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- First Name -->
+                    <div>
+                        <label asp-for="FirstName" class="block text-sm font-medium text-gray-700 mb-1">
+                            @Localizer["First Name"] <span class="text-red-500">*</span>
+                        </label>
+                        <input asp-for="FirstName" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+                        <span asp-validation-for="FirstName" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div>
+                        <label asp-for="LastName" class="block text-sm font-medium text-gray-700 mb-1">
+                            @Localizer["Last Name"] <span class="text-red-500">*</span>
+                        </label>
+                        <input asp-for="LastName" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+                        <span asp-validation-for="LastName" class="text-red-600 text-sm"></span>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label asp-for="Email" class="block text-sm font-medium text-gray-700 mb-1">
+                        @Localizer["Email"] <span class="text-red-500">*</span>
+                    </label>
+                    <input asp-for="Email" type="email" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+                    <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Department -->
+                    <div>
+                        <label asp-for="DepartmentId" class="block text-sm font-medium text-gray-700 mb-1">
+                            @Localizer["Department"]
+                        </label>
+                        <select asp-for="DepartmentId" asp-items="ViewBag.DepartmentId" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">@Localizer["Select Department"]</option>
+                        </select>
+                        <span asp-validation-for="DepartmentId" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <!-- Preferred Language -->
+                    <div>
+                        <label asp-for="PreferredLanguage" class="block text-sm font-medium text-gray-700 mb-1">
+                            @Localizer["Preferred Language"]
+                        </label>
+                        <select asp-for="PreferredLanguage" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option value="en" selected="@(Model.PreferredLanguage == "en")">English</option>
+                            <option value="th" selected="@(Model.PreferredLanguage == "th")">ไทย</option>
+                            <option value="ja" selected="@(Model.PreferredLanguage == "ja")">日本語</option>
+                        </select>
+                        <span asp-validation-for="PreferredLanguage" class="text-red-600 text-sm"></span>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div>
+                    <label class="flex items-center">
+                        <input asp-for="IsActive" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                        <span class="ml-2 text-sm font-medium text-gray-700">@Localizer["Active User"]</span>
+                    </label>
+                    <span asp-validation-for="IsActive" class="text-red-600 text-sm"></span>
+                </div>
+
+                <!-- Roles -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">@Localizer["Roles"]</label>
+                    <div class="space-y-2">
+                        @if (ViewBag.Roles != null)
+                        {
+                            @foreach (var role in (IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>)ViewBag.Roles)
+                            {
+                                <label class="flex items-center">
+                                    <input type="checkbox" 
+                                           name="SelectedRoles" 
+                                           value="@role.Value" 
+                                           checked="@(Model.CurrentRoles.Contains(role.Value))"
+                                           class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                                    <span class="ml-2 text-sm text-gray-700">@role.Text</span>
+                                </label>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+                    <a href="@Url.Action("Details", new { id = Model.Id })" 
+                       class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        @Localizer["Cancel"]
+                    </a>
+                    <button type="submit" 
+                            class="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        @Localizer["Save Changes"]
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Password Reset Section -->
+        <div class="bg-white shadow rounded-lg p-6 mt-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">@Localizer["Password Reset"]</h3>
+            <div id="password-reset-form" class="space-y-4">
+                <div>
+                    <label for="newPassword" class="block text-sm font-medium text-gray-700 mb-1">
+                        @Localizer["New Password"]
+                    </label>
+                    <input type="password" 
+                           id="newPassword" 
+                           name="newPassword" 
+                           class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
+                           minlength="6" />
+                    <p class="text-xs text-gray-500 mt-1">@Localizer["Minimum 6 characters, must contain uppercase, lowercase, and number"]</p>
+                </div>
+                
+                <div>
+                    <button type="button" 
+                            onclick="resetPassword()" 
+                            class="px-4 py-2 bg-red-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        @Localizer["Reset Password"]
+                    </button>
+                </div>
+                
+                <div id="password-reset-message" class="hidden"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        function resetPassword() {
+            const newPassword = document.getElementById('newPassword').value;
+            const messageDiv = document.getElementById('password-reset-message');
+            
+            if (!newPassword || newPassword.length < 6) {
+                showMessage('Please enter a valid password (minimum 6 characters)', 'error');
+                return;
+            }
+            
+            fetch('@Url.Action("ResetPassword")', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                },
+                body: `id=@Model.Id&newPassword=${encodeURIComponent(newPassword)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showMessage(data.message, 'success');
+                    document.getElementById('newPassword').value = '';
+                } else {
+                    showMessage(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                showMessage('An error occurred while resetting the password', 'error');
+            });
+        }
+        
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('password-reset-message');
+            messageDiv.className = `p-3 rounded-md text-sm ${type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`;
+            messageDiv.textContent = message;
+            messageDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                messageDiv.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+}

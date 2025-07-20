@@ -1,0 +1,140 @@
+@page
+@model Project001.Areas.Identity.Pages.Account.LoginModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<Project001.Resources.SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["Login"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <!-- Header -->
+        <div class="text-center">
+            <div class="mx-auto h-16 w-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center mb-6 shadow-lg">
+                <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-6a2 2 0 012-2h2a2 2 0 012 2v6m-6 0V9a2 2 0 012-2h2a2 2 0 012 2v6"/>
+                </svg>
+            </div>
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">@Localizer["WelcomeBack"]</h1>
+            <p class="text-gray-600">@Localizer["SignInToYourAccount"]</p>
+        </div>
+
+        <!-- Login Form -->
+        <div class="bg-white py-8 px-6 shadow-xl rounded-2xl border border-gray-100">
+            <form id="account" method="post" class="space-y-6">
+                <div asp-validation-summary="ModelOnly" class="text-red-600 text-sm bg-red-50 p-3 rounded-lg border border-red-200"></div>
+
+                <!-- Email Field -->
+                <div>
+                    <label asp-for="Input.Email" class="block text-sm font-semibold text-gray-700 mb-2">@Localizer["Username"]</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/>
+                            </svg>
+                        </div>
+                        <input asp-for="Input.Email" 
+                               class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 ease-in-out placeholder-gray-400" 
+                               autocomplete="username" 
+                               aria-required="true" 
+                               placeholder="@Localizer["EnterYourUsername"]" />
+                    </div>
+                    <span asp-validation-for="Input.Email" class="text-red-500 text-xs mt-1"></span>
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                    <label asp-for="Input.Password" class="block text-sm font-semibold text-gray-700 mb-2">@Localizer["Password"]</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </div>
+                        <input asp-for="Input.Password" 
+                               type="password"
+                               class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 ease-in-out placeholder-gray-400" 
+                               autocomplete="current-password" 
+                               aria-required="true" 
+                               placeholder="@Localizer["EnterYourPassword"]" />
+                    </div>
+                    <span asp-validation-for="Input.Password" class="text-red-500 text-xs mt-1"></span>
+                </div>
+
+                <!-- Remember Me Checkbox -->
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input asp-for="Input.RememberMe" 
+                               type="checkbox"
+                               class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded transition duration-200" />
+                        <label asp-for="Input.RememberMe" class="ml-2 block text-sm text-gray-700">
+                            @Localizer["RememberMe"]
+                        </label>
+                    </div>
+                    <div class="text-sm">
+                        <a id="forgot-password" asp-page="./ForgotPassword" class="font-medium text-blue-600 hover:text-blue-500 transition duration-200">
+                            @Localizer["ForgotPassword"]
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <button id="login-submit" type="submit" 
+                            class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-xl text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 ease-in-out shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                            <svg class="h-5 w-5 text-blue-200 group-hover:text-blue-100" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                        @Localizer["SignIn"]
+                    </button>
+                </div>
+
+                <!-- External Logins Section -->
+                @{
+                    if ((Model.ExternalLogins?.Count ?? 0) > 0)
+                    {
+                        <div class="mt-6">
+                            <div class="relative">
+                                <div class="absolute inset-0 flex items-center">
+                                    <div class="w-full border-t border-gray-300" />
+                                </div>
+                                <div class="relative flex justify-center text-sm">
+                                    <span class="px-2 bg-white text-gray-500">@Localizer["OrContinueWith"]</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 grid grid-cols-1 gap-3">
+                                @foreach (var provider in Model.ExternalLogins!)
+                                {
+                                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                                        <button type="submit" asp-route-provider="@provider.Name" 
+                                                class="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-xl shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition duration-200">
+                                            @Localizer["SignInWith"] @provider.DisplayName
+                                        </button>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </form>
+        </div>
+
+        <!-- Register Link -->
+        <div class="text-center">
+            <p class="text-sm text-gray-600">
+                @Localizer["DontHaveAccount"]
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" 
+                   class="font-semibold text-blue-600 hover:text-blue-500 transition duration-200">
+                    @Localizer["SignUpNow"]
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

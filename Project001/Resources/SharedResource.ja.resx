@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- Navigation -->
+  <data name="Dashboard" xml:space="preserve">
+    <value>ダッシュボード</value>
+  </data>
+  <data name="Rooms" xml:space="preserve">
+    <value>会議室</value>
+  </data>
+  <data name="MyBookings" xml:space="preserve">
+    <value>私の予約</value>
+  </data>
+  <data name="Calendar" xml:space="preserve">
+    <value>カレンダー</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>管理者</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>ユーザー管理</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>部署</value>
+  </data>
+  <data name="AddRoom" xml:space="preserve">
+    <value>部屋を追加</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>サインイン</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>サインアップ</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>サインアウト</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>プロフィール</value>
+  </data>
+
+  <!-- Common Actions -->
+  <data name="Create" xml:space="preserve">
+    <value>作成</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>表示</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>詳細</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>戻る</value>
+  </data>
+
+  <!-- Booking Related -->
+  <data name="BookRoom" xml:space="preserve">
+    <value>部屋を予約</value>
+  </data>
+  <data name="NewBooking" xml:space="preserve">
+    <value>新しい予約</value>
+  </data>
+  <data name="CreateBooking" xml:space="preserve">
+    <value>予約作成</value>
+  </data>
+  <data name="BookingDetails" xml:space="preserve">
+    <value>予約詳細</value>
+  </data>
+  <data name="MeetingTitle" xml:space="preserve">
+    <value>会議タイトル</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>開始時間</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>終了時間</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="Attendees" xml:space="preserve">
+    <value>参加者</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状態</value>
+  </data>
+  <data name="Room" xml:space="preserve">
+    <value>部屋</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>時間</value>
+  </data>
+
+  <!-- Status Values -->
+  <data name="Active" xml:space="preserve">
+    <value>アクティブ</value>
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>非アクティブ</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>利用可能</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>確認済み</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>保留中</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>キャンセル済み</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>完了</value>
+  </data>
+
+  <!-- Room Features -->
+  <data name="Capacity" xml:space="preserve">
+    <value>収容人数</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>場所</value>
+  </data>
+  <data name="Floor" xml:space="preserve">
+    <value>階</value>
+  </data>
+  <data name="Equipment" xml:space="preserve">
+    <value>設備</value>
+  </data>
+  <data name="Projector" xml:space="preserve">
+    <value>プロジェクター</value>
+  </data>
+  <data name="VideoConference" xml:space="preserve">
+    <value>ビデオ会議</value>
+  </data>
+  <data name="Whiteboard" xml:space="preserve">
+    <value>ホワイトボード</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>電話</value>
+  </data>
+  <data name="Computer" xml:space="preserve">
+    <value>コンピューター</value>
+  </data>
+
+  <!-- Dashboard -->
+  <data name="WelcomeBack" xml:space="preserve">
+    <value>おかえりなさい</value>
+  </data>
+  <data name="TodaysSchedule" xml:space="preserve">
+    <value>今日のスケジュール</value>
+  </data>
+  <data name="QuickStats" xml:space="preserve">
+    <value>クイック統計</value>
+  </data>
+  <data name="UpcomingBookings" xml:space="preserve">
+    <value>今後の予約</value>
+  </data>
+  <data name="RecentActivity" xml:space="preserve">
+    <value>最近のアクティビティ</value>
+  </data>
+  <data name="TotalRooms" xml:space="preserve">
+    <value>総部屋数</value>
+  </data>
+  <data name="AvailableNow" xml:space="preserve">
+    <value>現在利用可能</value>
+  </data>
+  <data name="MyBookingsThisWeek" xml:space="preserve">
+    <value>今週の私の予約</value>
+  </data>
+  <data name="PopularTime" xml:space="preserve">
+    <value>人気の時間</value>
+  </data>
+
+  <!-- Messages -->
+  <data name="NoMeetingsToday" xml:space="preserve">
+    <value>今日は会議がありません</value>
+  </data>
+  <data name="FreeScheduleToday" xml:space="preserve">
+    <value>今日は空いています</value>
+  </data>
+  <data name="NoUpcomingBookings" xml:space="preserve">
+    <value>今後の予約がありません</value>
+  </data>
+  <data name="NoRecentActivity" xml:space="preserve">
+    <value>最近のアクティビティがありません</value>
+  </data>
+  <data name="NoRoomsFound" xml:space="preserve">
+    <value>部屋が見つかりません</value>
+  </data>
+  <data name="NoBookingsFound" xml:space="preserve">
+    <value>予約が見つかりません</value>
+  </data>
+
+  <!-- User Management -->
+  <data name="FirstName" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>部署</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>役割</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>パスワード確認</value>
+  </data>
+  <data name="PreferredLanguage" xml:space="preserve">
+    <value>優先言語</value>
+  </data>
+
+  <!-- Languages -->
+  <data name="English" xml:space="preserve">
+    <value>英語</value>
+  </data>
+  <data name="Thai" xml:space="preserve">
+    <value>タイ語</value>
+  </data>
+  <data name="Japanese" xml:space="preserve">
+    <value>日本語</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>言語を選択</value>
+  </data>
+
+  <!-- Authentication -->
+  <data name="Login" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>登録</value>
+  </data>
+  <data name="SignInToYourAccount" xml:space="preserve">
+    <value>アカウントにサインイン</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>アカウント作成</value>
+  </data>
+  <data name="JoinOurMeetingRoomSystem" xml:space="preserve">
+    <value>会議室システムに参加</value>
+  </data>
+  <data name="EnterYourEmail" xml:space="preserve">
+    <value>メールアドレスを入力</value>
+  </data>
+  <data name="EnterYourPassword" xml:space="preserve">
+    <value>パスワードを入力</value>
+  </data>
+  <data name="EnterFirstName" xml:space="preserve">
+    <value>名前を入力</value>
+  </data>
+  <data name="EnterLastName" xml:space="preserve">
+    <value>姓を入力</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>パスワードを入力</value>
+  </data>
+  <data name="ConfirmYourPassword" xml:space="preserve">
+    <value>パスワードを確認</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>ログイン状態を保持</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>パスワードをお忘れですか？</value>
+  </data>
+  <data name="OrContinueWith" xml:space="preserve">
+    <value>または続行</value>
+  </data>
+  <data name="OrRegisterWith" xml:space="preserve">
+    <value>または登録</value>
+  </data>
+  <data name="SignInWith" xml:space="preserve">
+    <value>サインイン</value>
+  </data>
+  <data name="SignUpWith" xml:space="preserve">
+    <value>サインアップ</value>
+  </data>
+  <data name="DontHaveAccount" xml:space="preserve">
+    <value>アカウントをお持ちでない？</value>
+  </data>
+  <data name="AlreadyHaveAccount" xml:space="preserve">
+    <value>すでにアカウントをお持ちですか？</value>
+  </data>
+  <data name="SignUpNow" xml:space="preserve">
+    <value>今すぐサインアップ</value>
+  </data>
+  <data name="SignInHere" xml:space="preserve">
+    <value>こちらからサインイン</value>
+  </data>
+  <data name="SelectDepartment" xml:space="preserve">
+    <value>部署を選択</value>
+  </data>
+  <data name="PasswordRequirements" xml:space="preserve">
+    <value>パスワード要件</value>
+  </data>
+  <data name="AtLeast6Characters" xml:space="preserve">
+    <value>6文字以上</value>
+  </data>
+  <data name="OneUppercaseLetter" xml:space="preserve">
+    <value>大文字1文字</value>
+  </data>
+  <data name="OneLowercaseLetter" xml:space="preserve">
+    <value>小文字1文字</value>
+  </data>
+  <data name="OneDigit" xml:space="preserve">
+    <value>数字1文字</value>
+  </data>
+
+  <!-- Page Titles -->
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>プライバシーポリシー</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="MeetingRooms" xml:space="preserve">
+    <value>会議室</value>
+  </data>
+  <data name="CreateRoom" xml:space="preserve">
+    <value>部屋を作成</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>ユーザー作成</value>
+  </data>
+  <data name="DepartmentManagement" xml:space="preserve">
+    <value>部署管理</value>
+  </data>
+
+  <!-- Common Messages -->
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>このページを使用して、サイトのプライバシーポリシーの詳細を説明してください。</value>
+  </data>
+  <data name="ErrorOccurred" xml:space="preserve">
+    <value>リクエストの処理中にエラーが発生しました。</value>
+  </data>
+  <data name="RequestId" xml:space="preserve">
+    <value>リクエストID</value>
+  </data>
+  <data name="DevelopmentMode" xml:space="preserve">
+    <value>開発モード</value>
+  </data>
+  <data name="MeetingRoomBooking" xml:space="preserve">
+    <value>会議室予約システム</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>© 2025 会議室予約システム All rights reserved.</value>
+  </data>
+
+  <!-- Landing Page -->
+  <data name="ManageBookingsText" xml:space="preserve">
+    <value>会議室の予約を管理し、利用可能なスペースを探索します。</value>
+  </data>
+  <data name="QuickAction" xml:space="preserve">
+    <value>クイックアクション</value>
+  </data>
+  <data name="Explore" xml:space="preserve">
+    <value>探索</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="ViewAllBookings" xml:space="preserve">
+    <value>すべての予約を表示 →</value>
+  </data>
+  <data name="Booked" xml:space="preserve">
+    <value>予約済み</value>
+  </data>
+
+  <!-- Search and Filters -->
+  <data name="RoomSearchPlaceholder" xml:space="preserve">
+    <value>部屋名、場所、階...</value>
+  </data>
+  <data name="MinCapacity" xml:space="preserve">
+    <value>最小収容人数</value>
+  </data>
+  <data name="MinimumCapacity" xml:space="preserve">
+    <value>最小収容人数</value>
+  </data>
+
+  <!-- Actions -->
+  <data name="ViewDetails" xml:space="preserve">
+    <value>詳細を表示</value>
+  </data>
+  <data name="Availability" xml:space="preserve">
+    <value>空き状況</value>
+  </data>
+  <data name="CheckAvailability" xml:space="preserve">
+    <value>空き状況をチェック</value>
+  </data>
+  <data name="EditRoom" xml:space="preserve">
+    <value>部屋を編集</value>
+  </data>
+  <data name="BackToRooms" xml:space="preserve">
+    <value>部屋一覧に戻る</value>
+  </data>
+  <data name="ExportCSV" xml:space="preserve">
+    <value>CSV出力</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>ユーザー追加</value>
+  </data>
+  <data name="AddDepartment" xml:space="preserve">
+    <value>部署追加</value>
+  </data>
+  <data name="ViewStatistics" xml:space="preserve">
+    <value>統計を表示</value>
+  </data>
+
+  <!-- Form Labels -->
+  <data name="BasicInformation" xml:space="preserve">
+    <value>基本情報</value>
+  </data>
+  <data name="EquipmentAmenities" xml:space="preserve">
+    <value>設備・アメニティ</value>
+  </data>
+  <data name="CreateNewRoom" xml:space="preserve">
+    <value>新しい部屋を作成</value>
+  </data>
+  <data name="CreateNewUser" xml:space="preserve">
+    <value>新しいユーザーを作成</value>
+  </data>
+  <data name="CreateNewBooking" xml:space="preserve">
+    <value>新しい予約を作成</value>
+  </data>
+  <data name="RecurringMeeting" xml:space="preserve">
+    <value>定期会議（オプション）</value>
+  </data>
+  <data name="LocalizedNames" xml:space="preserve">
+    <value>各言語の名前</value>
+  </data>
+
+  <!-- Calendar -->
+  <data name="MeetingCalendar" xml:space="preserve">
+    <value>会議カレンダー</value>
+  </data>
+  <data name="ListView" xml:space="preserve">
+    <value>リスト表示</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>前の週</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>次の週</value>
+  </data>
+  <data name="Book" xml:space="preserve">
+    <value>+ 予約</value>
+  </data>
+  <data name="NoBookingsToday" xml:space="preserve">
+    <value>今日の予約はありません</value>
+  </data>
+
+  <!-- Languages Display -->
+  <data name="ThaiLanguage" xml:space="preserve">
+    <value>ไทย (Thai)</value>
+  </data>
+  <data name="JapaneseLanguage" xml:space="preserve">
+    <value>日本語 (Japanese)</value>
+  </data>
+
+  <!-- Additional Keys -->
+  <data name="GetStarted" xml:space="preserve">
+    <value>開始する</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>アクション</value>
+  </data>
+
+  <!-- Profile Page Specific -->
+  <data name="UpdateYourProfileInformation" xml:space="preserve">
+    <value>プロフィール情報を更新</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>個人情報</value>
+  </data>
+  <data name="WorkInformation" xml:space="preserve">
+    <value>勤務情報</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>電話番号</value>
+  </data>
+  <data name="EmailCannotBeChanged" xml:space="preserve">
+    <value>メールアドレスは変更できません</value>
+  </data>
+  <data name="AccountInformation" xml:space="preserve">
+    <value>アカウント情報</value>
+  </data>
+  <data name="AccountCreated" xml:space="preserve">
+    <value>アカウント作成日</value>
+  </data>
+  <data name="LastUpdated" xml:space="preserve">
+    <value>最終更新日</value>
+  </data>
+  <data name="BackToDashboard" xml:space="preserve">
+    <value>ダッシュボードに戻る</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>変更を保存</value>
+  </data>
+
+</root>

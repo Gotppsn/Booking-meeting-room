@@ -1,0 +1,216 @@
+@model Project001.Models.Entities.Department
+
+@{
+    ViewData["Title"] = "Department Details";
+    var bookingStats = ViewData["BookingStats"] as dynamic;
+}
+
+<div class="max-w-4xl mx-auto">
+    <!-- Department Header -->
+    <div class="bg-white shadow rounded-lg mb-6">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="w-6 h-6 rounded-full mr-4" style="background-color: @Model.ColorCode"></div>
+                    <div>
+                        <h1 class="text-2xl font-semibold text-gray-900">@Model.Name</h1>
+                        <p class="text-sm text-gray-500">Department Details</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    @if (Model.IsActive)
+                    {
+                        <span class="inline-flex items-center px-3 py-1 text-sm font-medium bg-green-100 text-green-800 rounded-full">
+                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            Active
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="inline-flex items-center px-3 py-1 text-sm font-medium bg-red-100 text-red-800 rounded-full">
+                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                            </svg>
+                            Inactive
+                        </span>
+                    }
+                    <div class="flex space-x-2">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm transition-colors duration-200">
+                            Edit Department
+                        </a>
+                        <a asp-action="Index" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md text-sm transition-colors duration-200">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Department Information -->
+        <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Basic Information -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Basic Information</h3>
+                    <dl class="space-y-3">
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Department Name (English)</dt>
+                            <dd class="text-sm text-gray-900">@Model.Name</dd>
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.NameTh))
+                        {
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Department Name (Thai)</dt>
+                                <dd class="text-sm text-gray-900">@Model.NameTh</dd>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.NameJa))
+                        {
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Department Name (Japanese)</dt>
+                                <dd class="text-sm text-gray-900">@Model.NameJa</dd>
+                            </div>
+                        }
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Color Code</dt>
+                            <dd class="text-sm text-gray-900 flex items-center">
+                                <div class="w-4 h-4 rounded mr-2" style="background-color: @Model.ColorCode"></div>
+                                @Model.ColorCode
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Status</dt>
+                            <dd class="text-sm text-gray-900">@(Model.IsActive ? "Active" : "Inactive")</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- Timestamps -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Timeline</h3>
+                    <dl class="space-y-3">
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Created</dt>
+                            <dd class="text-sm text-gray-900">@Model.CreatedAt.ToString("MMMM dd, yyyy 'at' HH:mm")</dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Last Updated</dt>
+                            <dd class="text-sm text-gray-900">@Model.UpdatedAt.ToString("MMMM dd, yyyy 'at' HH:mm")</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    @if (bookingStats != null)
+    {
+        <div class="bg-white shadow rounded-lg mb-6">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Department Statistics</h2>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="text-center p-4 bg-blue-50 rounded-lg">
+                        <div class="text-3xl font-bold text-blue-600">@Model.Users.Count(u => u.IsActive)</div>
+                        <div class="text-sm text-gray-600 mt-1">Active Users</div>
+                    </div>
+                    <div class="text-center p-4 bg-green-50 rounded-lg">
+                        <div class="text-3xl font-bold text-green-600">@bookingStats.TotalBookings</div>
+                        <div class="text-sm text-gray-600 mt-1">Total Bookings</div>
+                    </div>
+                    <div class="text-center p-4 bg-yellow-50 rounded-lg">
+                        <div class="text-3xl font-bold text-yellow-600">@bookingStats.UpcomingBookings</div>
+                        <div class="text-sm text-gray-600 mt-1">Upcoming Bookings</div>
+                    </div>
+                    <div class="text-center p-4 bg-purple-50 rounded-lg">
+                        <div class="text-3xl font-bold text-purple-600">@bookingStats.ThisMonthBookings</div>
+                        <div class="text-sm text-gray-600 mt-1">This Month</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Department Users -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold text-gray-900">Department Users</h2>
+                <span class="text-sm text-gray-500">@Model.Users.Count(u => u.IsActive) active users</span>
+            </div>
+        </div>
+        <div class="p-6">
+            @if (Model.Users.Any(u => u.IsActive))
+            {
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    @foreach (var user in Model.Users.Where(u => u.IsActive).OrderBy(u => u.FirstName))
+                    {
+                        <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                                    <span class="text-sm font-medium text-gray-700">
+                                        @(user.FirstName.Substring(0, 1))@(user.LastName.Substring(0, 1))
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="ml-4 flex-1">
+                                <div class="text-sm font-medium text-gray-900">
+                                    @user.FirstName @user.LastName
+                                </div>
+                                <div class="text-sm text-gray-500">
+                                    @user.Email
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-8">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                        <path d="M34 40h10v-4a6 6 0 00-10.712-3.714M34 40H14m20 0v-4a9.971 9.971 0 00-.712-3.714M14 40H4v-4a6 6 0 0110.713-3.714M14 40v-4c0-1.313.253-2.566.713-3.714m0 0A10.003 10.003 0 0124 26c4.21 0 7.813 2.602 9.288 6.286M30 14a6 6 0 11-12 0 6 6 0 0112 0zm12 6a4 4 0 11-8 0 4 4 0 018 0zm-28 0a4 4 0 11-8 0 4 4 0 018 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900">No active users</h3>
+                    <p class="mt-1 text-sm text-gray-500">This department doesn't have any active users assigned yet.</p>
+                </div>
+            }
+
+            @if (Model.Users.Any(u => !u.IsActive))
+            {
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <h3 class="text-sm font-medium text-gray-700 mb-3">Inactive Users (@Model.Users.Count(u => !u.IsActive))</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @foreach (var user in Model.Users.Where(u => !u.IsActive).OrderBy(u => u.FirstName))
+                        {
+                            <div class="flex items-center p-4 border border-gray-200 rounded-lg bg-gray-50 opacity-75">
+                                <div class="flex-shrink-0">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                                        <span class="text-sm font-medium text-gray-500">
+                                            @(user.FirstName.Substring(0, 1))@(user.LastName.Substring(0, 1))
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ml-4 flex-1">
+                                    <div class="text-sm font-medium text-gray-600">
+                                        @user.FirstName @user.LastName
+                                    </div>
+                                    <div class="text-sm text-gray-400">
+                                        @user.Email
+                                    </div>
+                                </div>
+                                <div class="text-xs text-gray-500">
+                                    Inactive
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,195 @@
+@model IEnumerable<Project001.Models.ViewModels.UserViewModel>
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<div class="bg-white shadow rounded-lg">
+    <div class="px-6 py-4 border-b border-gray-200">
+        <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-semibold text-gray-900">User Management</h1>
+            <div class="flex space-x-2">
+                <a asp-action="Export" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                    Export CSV
+                </a>
+                <a asp-action="Create" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                    Add User
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+        <form method="get" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div>
+                <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Search</label>
+                <input type="text" name="search" id="search" value="@ViewData["Search"]" 
+                       placeholder="Name, email..." 
+                       class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+            <div>
+                <label for="departmentId" class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                <select name="departmentId" id="departmentId" asp-items="ViewBag.DepartmentId" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <option value="">All Departments</option>
+                </select>
+            </div>
+            <div>
+                <label for="role" class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                <select name="role" id="role" asp-items="ViewBag.Role" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <option value="">All Roles</option>
+                </select>
+            </div>
+            <div>
+                <label for="isActive" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                <select name="isActive" id="isActive" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <option value="">All Users</option>
+                    <option value="true" selected="@(ViewData["IsActive"] as bool? == true)">Active</option>
+                    <option value="false" selected="@(ViewData["IsActive"] as bool? == false)">Inactive</option>
+                </select>
+            </div>
+            <div class="flex items-end">
+                <button type="submit" class="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                    Filter
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Users List -->
+    <div class="overflow-x-auto">
+        @if (Model.Any())
+        {
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Roles</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach (var user in Model)
+                    {
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <div class="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center">
+                                            <span class="text-sm font-medium text-white">
+                                                @(user.FirstName?.Substring(0, 1) ?? "U")@(user.LastName?.Substring(0, 1) ?? "")
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">@user.FullName</div>
+                                        <div class="text-sm text-gray-500">@user.Email</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if (user.Department != null)
+                                {
+                                    <div class="flex items-center">
+                                        <div class="w-3 h-3 rounded-full mr-2" style="background-color: @user.Department.ColorCode"></div>
+                                        <span class="text-sm text-gray-900">@user.Department.Name</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="text-sm text-gray-400">No Department</span>
+                                }
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex flex-wrap gap-1">
+                                    @foreach (var role in user.Roles)
+                                    {
+                                        <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full
+                                            @(role == "Admin" ? "bg-red-100 text-red-800" : 
+                                              role == "Manager" ? "bg-yellow-100 text-yellow-800" : 
+                                              "bg-blue-100 text-blue-800")">
+                                            @role
+                                        </span>
+                                    }
+                                    @if (!user.Roles.Any())
+                                    {
+                                        <span class="text-sm text-gray-400">No roles</span>
+                                    }
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if (user.IsActive)
+                                {
+                                    <span class="inline-flex items-center px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+                                        Active
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">
+                                        Inactive
+                                    </span>
+                                }
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                @user.CreatedAt.ToString("MMM dd, yyyy")
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div class="flex space-x-2">
+                                    <a asp-action="Details" asp-route-id="@user.Id" 
+                                       class="text-blue-600 hover:text-blue-900 transition-colors duration-200">
+                                        View
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@user.Id" 
+                                       class="text-yellow-600 hover:text-yellow-900 transition-colors duration-200">
+                                        Edit
+                                    </a>
+                                    <form asp-action="ToggleActive" asp-route-id="@user.Id" method="post" class="inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" 
+                                                class="@(user.IsActive ? "text-red-600 hover:text-red-900" : "text-green-600 hover:text-green-900") transition-colors duration-200"
+                                                onclick="return confirm('@(user.IsActive ? "Deactivate" : "Activate") this user?')">
+                                            @(user.IsActive ? "Deactivate" : "Activate")
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="text-center py-12">
+                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                    <path d="M34 40h10v-4a6 6 0 00-10.712-3.714M34 40H14m20 0v-4a9.971 9.971 0 00-.712-3.714M14 40H4v-4a6 6 0 0110.713-3.714M14 40v-4c0-1.313.253-2.566.713-3.714m0 0A10.003 10.003 0 0124 26c4.21 0 7.813 2.602 9.288 6.286M30 14a6 6 0 11-12 0 6 6 0 0112 0zm12 6a4 4 0 11-8 0 4 4 0 018 0zm-28 0a4 4 0 11-8 0 4 4 0 018 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <h3 class="mt-2 text-sm font-medium text-gray-900">No users found</h3>
+                <p class="mt-1 text-sm text-gray-500">Get started by creating a new user account.</p>
+                <div class="mt-6">
+                    <a asp-action="Create" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm transition-colors duration-200">
+                        Add User
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (Model.Any())
+    {
+        <!-- Summary Footer -->
+        <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+            <div class="flex justify-between items-center text-sm text-gray-600">
+                <span>Showing @Model.Count() users</span>
+                <div class="flex space-x-4">
+                    <span>Active: @Model.Count(u => u.IsActive)</span>
+                    <span>Inactive: @Model.Count(u => !u.IsActive)</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>

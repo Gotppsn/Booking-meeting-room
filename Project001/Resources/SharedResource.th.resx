@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- Navigation -->
+  <data name="Dashboard" xml:space="preserve">
+    <value>แดชบอร์ด</value>
+  </data>
+  <data name="Rooms" xml:space="preserve">
+    <value>ห้องประชุม</value>
+  </data>
+  <data name="MyBookings" xml:space="preserve">
+    <value>การจองของฉัน</value>
+  </data>
+  <data name="Calendar" xml:space="preserve">
+    <value>ปฏิทิน</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>ผู้ดูแลระบบ</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>จัดการผู้ใช้</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>แผนก</value>
+  </data>
+  <data name="AddRoom" xml:space="preserve">
+    <value>เพิ่มห้อง</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>เข้าสู่ระบบ</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>สมัครสมาชิก</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>ออกจากระบบ</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>โปรไฟล์</value>
+  </data>
+
+  <!-- Common Actions -->
+  <data name="Create" xml:space="preserve">
+    <value>สร้าง</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>ค้นหา</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>กรอง</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>ดู</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>รายละเอียด</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>กลับ</value>
+  </data>
+
+  <!-- Booking Related -->
+  <data name="BookRoom" xml:space="preserve">
+    <value>จองห้อง</value>
+  </data>
+  <data name="NewBooking" xml:space="preserve">
+    <value>การจองใหม่</value>
+  </data>
+  <data name="CreateBooking" xml:space="preserve">
+    <value>สร้างการจอง</value>
+  </data>
+  <data name="BookingDetails" xml:space="preserve">
+    <value>รายละเอียดการจอง</value>
+  </data>
+  <data name="MeetingTitle" xml:space="preserve">
+    <value>หัวข้อการประชุม</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>เวลาเริ่ม</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>เวลาสิ้นสุด</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>ระยะเวลา</value>
+  </data>
+  <data name="Attendees" xml:space="preserve">
+    <value>ผู้เข้าร่วม</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>คำอธิบาย</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>สถานะ</value>
+  </data>
+  <data name="Room" xml:space="preserve">
+    <value>ห้อง</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>วันที่</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>เวลา</value>
+  </data>
+
+  <!-- Status Values -->
+  <data name="Active" xml:space="preserve">
+    <value>ใช้งานอยู่</value>
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>ไม่ใช้งาน</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>ว่าง</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>ยืนยันแล้ว</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>รอดำเนินการ</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>ยกเลิกแล้ว</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>เสร็จสิ้น</value>
+  </data>
+
+  <!-- Room Features -->
+  <data name="Capacity" xml:space="preserve">
+    <value>ความจุ</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>ตำแหน่ง</value>
+  </data>
+  <data name="Floor" xml:space="preserve">
+    <value>ชั้น</value>
+  </data>
+  <data name="Equipment" xml:space="preserve">
+    <value>อุปกรณ์</value>
+  </data>
+  <data name="Projector" xml:space="preserve">
+    <value>โปรเจคเตอร์</value>
+  </data>
+  <data name="VideoConference" xml:space="preserve">
+    <value>ประชุมทางไกล</value>
+  </data>
+  <data name="Whiteboard" xml:space="preserve">
+    <value>ไวท์บอร์ด</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>โทรศัพท์</value>
+  </data>
+  <data name="Computer" xml:space="preserve">
+    <value>คอมพิวเตอร์</value>
+  </data>
+
+  <!-- Dashboard -->
+  <data name="WelcomeBack" xml:space="preserve">
+    <value>ยินดีต้อนรับกลับ</value>
+  </data>
+  <data name="TodaysSchedule" xml:space="preserve">
+    <value>ตารางงานวันนี้</value>
+  </data>
+  <data name="QuickStats" xml:space="preserve">
+    <value>สถิติด่วน</value>
+  </data>
+  <data name="UpcomingBookings" xml:space="preserve">
+    <value>การจองที่จะมาถึง</value>
+  </data>
+  <data name="RecentActivity" xml:space="preserve">
+    <value>กิจกรรมล่าสุด</value>
+  </data>
+  <data name="TotalRooms" xml:space="preserve">
+    <value>ห้องทั้งหมด</value>
+  </data>
+  <data name="AvailableNow" xml:space="preserve">
+    <value>ว่างตอนนี้</value>
+  </data>
+  <data name="MyBookingsThisWeek" xml:space="preserve">
+    <value>การจองของฉันสัปดาห์นี้</value>
+  </data>
+  <data name="PopularTime" xml:space="preserve">
+    <value>เวลายอดนิยม</value>
+  </data>
+
+  <!-- Messages -->
+  <data name="NoMeetingsToday" xml:space="preserve">
+    <value>ไม่มีการประชุมวันนี้</value>
+  </data>
+  <data name="FreeScheduleToday" xml:space="preserve">
+    <value>คุณมีตารางว่างสำหรับวันนี้</value>
+  </data>
+  <data name="NoUpcomingBookings" xml:space="preserve">
+    <value>ไม่มีการจองที่จะมาถึง</value>
+  </data>
+  <data name="NoRecentActivity" xml:space="preserve">
+    <value>ไม่มีกิจกรรมล่าสุด</value>
+  </data>
+  <data name="NoRoomsFound" xml:space="preserve">
+    <value>ไม่พบห้อง</value>
+  </data>
+  <data name="NoBookingsFound" xml:space="preserve">
+    <value>ไม่พบการจอง</value>
+  </data>
+
+  <!-- User Management -->
+  <data name="FirstName" xml:space="preserve">
+    <value>ชื่อจริง</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>นามสกุล</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>อีเมล</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>แผนก</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>บทบาท</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>รหัสผ่าน</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>ยืนยันรหัสผ่าน</value>
+  </data>
+  <data name="PreferredLanguage" xml:space="preserve">
+    <value>ภาษาที่ต้องการ</value>
+  </data>
+
+  <!-- Languages -->
+  <data name="English" xml:space="preserve">
+    <value>อังกฤษ</value>
+  </data>
+  <data name="Thai" xml:space="preserve">
+    <value>ไทย</value>
+  </data>
+  <data name="Japanese" xml:space="preserve">
+    <value>ญี่ปุ่น</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>เลือกภาษา</value>
+  </data>
+
+  <!-- Authentication -->
+  <data name="Login" xml:space="preserve">
+    <value>เข้าสู่ระบบ</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>สมัครสมาชิก</value>
+  </data>
+  <data name="SignInToYourAccount" xml:space="preserve">
+    <value>เข้าสู่ระบบบัญชีของคุณ</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>สร้างบัญชี</value>
+  </data>
+  <data name="JoinOurMeetingRoomSystem" xml:space="preserve">
+    <value>เข้าร่วมระบบห้องประชุมของเรา</value>
+  </data>
+  <data name="EnterYourEmail" xml:space="preserve">
+    <value>กรอกที่อยู่อีเมลของคุณ</value>
+  </data>
+  <data name="EnterYourPassword" xml:space="preserve">
+    <value>กรอกรหัสผ่านของคุณ</value>
+  </data>
+  <data name="EnterFirstName" xml:space="preserve">
+    <value>กรอกชื่อจริงของคุณ</value>
+  </data>
+  <data name="EnterLastName" xml:space="preserve">
+    <value>กรอกนามสกุลของคุณ</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>กรอกรหัสผ่าน</value>
+  </data>
+  <data name="ConfirmYourPassword" xml:space="preserve">
+    <value>ยืนยันรหัสผ่านของคุณ</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>จดจำฉัน</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>ลืมรหัสผ่าน?</value>
+  </data>
+  <data name="OrContinueWith" xml:space="preserve">
+    <value>หรือดำเนินการต่อด้วย</value>
+  </data>
+  <data name="OrRegisterWith" xml:space="preserve">
+    <value>หรือสมัครสมาชิกด้วย</value>
+  </data>
+  <data name="SignInWith" xml:space="preserve">
+    <value>เข้าสู่ระบบด้วย</value>
+  </data>
+  <data name="SignUpWith" xml:space="preserve">
+    <value>สมัครสมาชิกด้วย</value>
+  </data>
+  <data name="DontHaveAccount" xml:space="preserve">
+    <value>ยังไม่มีบัญชี?</value>
+  </data>
+  <data name="AlreadyHaveAccount" xml:space="preserve">
+    <value>มีบัญชีอยู่แล้ว?</value>
+  </data>
+  <data name="SignUpNow" xml:space="preserve">
+    <value>สมัครสมาชิกตอนนี้</value>
+  </data>
+  <data name="SignInHere" xml:space="preserve">
+    <value>เข้าสู่ระบบที่นี่</value>
+  </data>
+  <data name="SelectDepartment" xml:space="preserve">
+    <value>เลือกแผนก</value>
+  </data>
+  <data name="PasswordRequirements" xml:space="preserve">
+    <value>ข้อกำหนดรหัสผ่าน</value>
+  </data>
+  <data name="AtLeast6Characters" xml:space="preserve">
+    <value>อย่างน้อย 6 ตัวอักษร</value>
+  </data>
+  <data name="OneUppercaseLetter" xml:space="preserve">
+    <value>ตัวอักษรพิมพ์ใหญ่ 1 ตัว</value>
+  </data>
+  <data name="OneLowercaseLetter" xml:space="preserve">
+    <value>ตัวอักษรพิมพ์เล็ก 1 ตัว</value>
+  </data>
+  <data name="OneDigit" xml:space="preserve">
+    <value>ตัวเลข 1 ตัว</value>
+  </data>
+
+  <!-- Page Titles -->
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>นโยบายความเป็นส่วนตัว</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>ข้อผิดพลาด</value>
+  </data>
+  <data name="MeetingRooms" xml:space="preserve">
+    <value>ห้องประชุม</value>
+  </data>
+  <data name="CreateRoom" xml:space="preserve">
+    <value>สร้างห้อง</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>สร้างผู้ใช้</value>
+  </data>
+  <data name="DepartmentManagement" xml:space="preserve">
+    <value>จัดการแผนก</value>
+  </data>
+
+  <!-- Common Messages -->
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>ใช้หน้านี้เพื่ออธิบายรายละเอียดนโยบายความเป็นส่วนตัวของเว็บไซต์</value>
+  </data>
+  <data name="ErrorOccurred" xml:space="preserve">
+    <value>เกิดข้อผิดพลาดขณะประมวลผลคำขอของคุณ</value>
+  </data>
+  <data name="RequestId" xml:space="preserve">
+    <value>รหัสคำขอ</value>
+  </data>
+  <data name="DevelopmentMode" xml:space="preserve">
+    <value>โหมดการพัฒนา</value>
+  </data>
+  <data name="MeetingRoomBooking" xml:space="preserve">
+    <value>ระบบจองห้องประชุม</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>© 2025 ระบบจองห้องประชุม สงวนลิขสิทธิ์ทั้งหมด</value>
+  </data>
+
+  <!-- Landing Page -->
+  <data name="ManageBookingsText" xml:space="preserve">
+    <value>จัดการการจองห้องประชุมและสำรวจพื้นที่ที่มีอยู่</value>
+  </data>
+  <data name="QuickAction" xml:space="preserve">
+    <value>การดำเนินการด่วน</value>
+  </data>
+  <data name="Explore" xml:space="preserve">
+    <value>สำรวจ</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>จัดการ</value>
+  </data>
+  <data name="ViewAllBookings" xml:space="preserve">
+    <value>ดูการจองทั้งหมด →</value>
+  </data>
+  <data name="Booked" xml:space="preserve">
+    <value>จองแล้ว</value>
+  </data>
+
+  <!-- Search and Filters -->
+  <data name="RoomSearchPlaceholder" xml:space="preserve">
+    <value>ชื่อห้อง, ตำแหน่ง, ชั้น...</value>
+  </data>
+  <data name="MinCapacity" xml:space="preserve">
+    <value>ความจุขั้นต่ำ</value>
+  </data>
+  <data name="MinimumCapacity" xml:space="preserve">
+    <value>ความจุขั้นต่ำ</value>
+  </data>
+
+  <!-- Actions -->
+  <data name="ViewDetails" xml:space="preserve">
+    <value>ดูรายละเอียด</value>
+  </data>
+  <data name="Availability" xml:space="preserve">
+    <value>ความพร้อมใช้งาน</value>
+  </data>
+  <data name="CheckAvailability" xml:space="preserve">
+    <value>ตรวจสอบความพร้อมใช้งาน</value>
+  </data>
+  <data name="EditRoom" xml:space="preserve">
+    <value>แก้ไขห้อง</value>
+  </data>
+  <data name="BackToRooms" xml:space="preserve">
+    <value>กลับไปที่ห้องประชุม</value>
+  </data>
+  <data name="ExportCSV" xml:space="preserve">
+    <value>ส่งออก CSV</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>เพิ่มผู้ใช้</value>
+  </data>
+  <data name="AddDepartment" xml:space="preserve">
+    <value>เพิ่มแผนก</value>
+  </data>
+  <data name="ViewStatistics" xml:space="preserve">
+    <value>ดูสถิติ</value>
+  </data>
+
+  <!-- Form Labels -->
+  <data name="BasicInformation" xml:space="preserve">
+    <value>ข้อมูลพื้นฐาน</value>
+  </data>
+  <data name="EquipmentAmenities" xml:space="preserve">
+    <value>อุปกรณ์และสิ่งอำนวยความสะดวก</value>
+  </data>
+  <data name="CreateNewRoom" xml:space="preserve">
+    <value>สร้างห้องใหม่</value>
+  </data>
+  <data name="CreateNewUser" xml:space="preserve">
+    <value>สร้างผู้ใช้ใหม่</value>
+  </data>
+  <data name="CreateNewBooking" xml:space="preserve">
+    <value>สร้างการจองใหม่</value>
+  </data>
+  <data name="RecurringMeeting" xml:space="preserve">
+    <value>การประชุมที่เกิดขึ้นซ้ำ (เสริม)</value>
+  </data>
+  <data name="LocalizedNames" xml:space="preserve">
+    <value>ชื่อแปลเป็นภาษาต่างๆ</value>
+  </data>
+
+  <!-- Calendar -->
+  <data name="MeetingCalendar" xml:space="preserve">
+    <value>ปฏิทินการประชุม</value>
+  </data>
+  <data name="ListView" xml:space="preserve">
+    <value>มุมมองรายการ</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>สัปดาห์ก่อน</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>สัปดาห์หน้า</value>
+  </data>
+  <data name="Book" xml:space="preserve">
+    <value>+ จอง</value>
+  </data>
+  <data name="NoBookingsToday" xml:space="preserve">
+    <value>ไม่มีการจองสำหรับวันนี้</value>
+  </data>
+
+  <!-- Languages Display -->
+  <data name="ThaiLanguage" xml:space="preserve">
+    <value>ไทย (Thai)</value>
+  </data>
+  <data name="JapaneseLanguage" xml:space="preserve">
+    <value>日本語 (Japanese)</value>
+  </data>
+
+  <!-- Additional Keys -->
+  <data name="GetStarted" xml:space="preserve">
+    <value>เริ่มต้นใช้งาน</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>การดำเนินการ</value>
+  </data>
+
+  <!-- Profile Page Specific -->
+  <data name="UpdateYourProfileInformation" xml:space="preserve">
+    <value>อัปเดตข้อมูลโปรไฟล์ของคุณ</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>ข้อมูลส่วนตัว</value>
+  </data>
+  <data name="WorkInformation" xml:space="preserve">
+    <value>ข้อมูลการทำงาน</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>หมายเลขโทรศัพท์</value>
+  </data>
+  <data name="EmailCannotBeChanged" xml:space="preserve">
+    <value>ไม่สามารถเปลี่ยนที่อยู่อีเมลได้</value>
+  </data>
+  <data name="AccountInformation" xml:space="preserve">
+    <value>ข้อมูลบัญชี</value>
+  </data>
+  <data name="AccountCreated" xml:space="preserve">
+    <value>สร้างบัญชี</value>
+  </data>
+  <data name="LastUpdated" xml:space="preserve">
+    <value>อัปเดตล่าสุด</value>
+  </data>
+  <data name="BackToDashboard" xml:space="preserve">
+    <value>กลับไปที่แดชบอร์ด</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>บันทึกการเปลี่ยนแปลง</value>
+  </data>
+
+</root>

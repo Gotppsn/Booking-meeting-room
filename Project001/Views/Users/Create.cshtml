@@ -1,0 +1,111 @@
+@model Project001.Models.ViewModels.CreateUserViewModel
+
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h1 class="text-2xl font-semibold text-gray-900">Create New User</h1>
+        </div>
+
+        <form asp-action="Create" class="p-6">
+            <div asp-validation-summary="ModelOnly" class="text-red-600 mb-4"></div>
+            
+            <div class="space-y-6">
+                <!-- Personal Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label asp-for="FirstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                        <input asp-for="FirstName" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        <span asp-validation-for="FirstName" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <div>
+                        <label asp-for="LastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                        <input asp-for="LastName" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        <span asp-validation-for="LastName" class="text-red-600 text-sm"></span>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div>
+                    <label asp-for="Email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <input asp-for="Email" type="email" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                    <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
+                    <p class="text-sm text-gray-500 mt-1">This will be used as the username for login</p>
+                </div>
+
+                <!-- Password Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label asp-for="Password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input asp-for="Password" type="password" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        <span asp-validation-for="Password" class="text-red-600 text-sm"></span>
+                        <p class="text-sm text-gray-500 mt-1">Minimum 6 characters, must include uppercase, lowercase, and numbers</p>
+                    </div>
+
+                    <div>
+                        <label asp-for="ConfirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                        <input asp-for="ConfirmPassword" type="password" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        <span asp-validation-for="ConfirmPassword" class="text-red-600 text-sm"></span>
+                    </div>
+                </div>
+
+                <!-- Organization Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label asp-for="DepartmentId" class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                        <select asp-for="DepartmentId" asp-items="ViewBag.DepartmentId" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Select Department (Optional)</option>
+                        </select>
+                        <span asp-validation-for="DepartmentId" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <div>
+                        <label asp-for="Role" class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                        <select asp-for="Role" asp-items="ViewBag.Roles" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Select Role (Optional)</option>
+                        </select>
+                        <span asp-validation-for="Role" class="text-red-600 text-sm"></span>
+                    </div>
+                </div>
+
+                <!-- Preferences -->
+                <div>
+                    <label asp-for="PreferredLanguage" class="block text-sm font-medium text-gray-700 mb-1">Preferred Language</label>
+                    <select asp-for="PreferredLanguage" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="en">English</option>
+                        <option value="th">ไทย (Thai)</option>
+                        <option value="ja">日本語 (Japanese)</option>
+                    </select>
+                    <span asp-validation-for="PreferredLanguage" class="text-red-600 text-sm"></span>
+                </div>
+
+                <!-- Role Descriptions -->
+                <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
+                    <h3 class="text-sm font-medium text-blue-900 mb-2">Role Descriptions</h3>
+                    <ul class="text-sm text-blue-800 space-y-1">
+                        <li><strong>Admin:</strong> Full system access, can manage users, rooms, and all bookings</li>
+                        <li><strong>Manager:</strong> Can view department reports and approve bookings for their department</li>
+                        <li><strong>Employee:</strong> Can book rooms and manage their own bookings</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-4 mt-8 pt-6 border-t border-gray-200">
+                <a asp-action="Index" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                    Cancel
+                </a>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                    Create User
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

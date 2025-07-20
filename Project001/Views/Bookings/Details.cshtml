@@ -1,0 +1,302 @@
+@model Project001.Models.Entities.Booking
+
+@{
+    ViewData["Title"] = $"Booking Details - {Model.Title}";
+}
+
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+        <!-- Header -->
+        <div class="px-6 py-4 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-semibold text-gray-900">@Model.Title</h1>
+                <div class="flex space-x-2">
+                    @if (Model.Status == Project001.Models.Entities.BookingStatus.Confirmed && Model.StartDateTime > DateTime.Now)
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.Id" 
+                           class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                            Edit Booking
+                        </a>
+                        <button onclick="cancelBooking(@Model.Id)" 
+                                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                            Cancel Booking
+                        </button>
+                    }
+                    <a asp-action="Index" 
+                       class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                        Back to Bookings
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Details -->
+                <div class="lg:col-span-2">
+                    <!-- Status and Type -->
+                    <div class="flex items-center space-x-4 mb-6">
+                        @switch (Model.Status)
+                        {
+                            case Project001.Models.Entities.BookingStatus.Confirmed:
+                                <span class="inline-flex items-center px-3 py-1 text-sm font-medium bg-green-100 text-green-800 rounded-full">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Confirmed
+                                </span>
+                                break;
+                            case Project001.Models.Entities.BookingStatus.Pending:
+                                <span class="inline-flex items-center px-3 py-1 text-sm font-medium bg-yellow-100 text-yellow-800 rounded-full">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Pending
+                                </span>
+                                break;
+                            case Project001.Models.Entities.BookingStatus.Cancelled:
+                                <span class="inline-flex items-center px-3 py-1 text-sm font-medium bg-red-100 text-red-800 rounded-full">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Cancelled
+                                </span>
+                                break;
+                            case Project001.Models.Entities.BookingStatus.Completed:
+                                <span class="inline-flex items-center px-3 py-1 text-sm font-medium bg-gray-100 text-gray-800 rounded-full">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Completed
+                                </span>
+                                break;
+                        }
+
+                        @if (Model.IsRecurring)
+                        {
+                            <span class="inline-flex items-center px-3 py-1 text-sm font-medium bg-blue-100 text-blue-800 rounded-full">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path>
+                                </svg>
+                                Recurring
+                            </span>
+                        }
+                    </div>
+
+                    <!-- Basic Information -->
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Meeting Details</h3>
+                            <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <dt class="text-sm font-medium text-gray-500">Date</dt>
+                                    <dd class="text-sm text-gray-900">@Model.StartDateTime.ToString("dddd, MMMM dd, yyyy")</dd>
+                                </div>
+                                <div>
+                                    <dt class="text-sm font-medium text-gray-500">Time</dt>
+                                    <dd class="text-sm text-gray-900">@Model.StartDateTime.ToString("h:mm tt") - @Model.EndDateTime.ToString("h:mm tt")</dd>
+                                </div>
+                                <div>
+                                    <dt class="text-sm font-medium text-gray-500">Duration</dt>
+                                    <dd class="text-sm text-gray-900">@Model.Duration.TotalHours.ToString("F1") hours</dd>
+                                </div>
+                                <div>
+                                    <dt class="text-sm font-medium text-gray-500">Organizer</dt>
+                                    <dd class="text-sm text-gray-900">@Model.User.FullName</dd>
+                                </div>
+                                @if (Model.AttendeeCount.HasValue)
+                                {
+                                    <div>
+                                        <dt class="text-sm font-medium text-gray-500">Expected Attendees</dt>
+                                        <dd class="text-sm text-gray-900">@Model.AttendeeCount people</dd>
+                                    </div>
+                                }
+                                <div>
+                                    <dt class="text-sm font-medium text-gray-500">Created</dt>
+                                    <dd class="text-sm text-gray-900">@Model.CreatedAt.ToString("MMM dd, yyyy h:mm tt")</dd>
+                                </div>
+                            </dl>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(Model.Description))
+                        {
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2">Description</h3>
+                                <p class="text-sm text-gray-700 whitespace-pre-line">@Model.Description</p>
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.Attendees))
+                        {
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2">Attendees</h3>
+                                <p class="text-sm text-gray-700 whitespace-pre-line">@Model.Attendees</p>
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.CancellationReason))
+                        {
+                            <div class="p-4 bg-red-50 border border-red-200 rounded-md">
+                                <h3 class="text-lg font-semibold text-red-900 mb-2">Cancellation Reason</h3>
+                                <p class="text-sm text-red-700">@Model.CancellationReason</p>
+                            </div>
+                        }
+
+                        @if (Model.RecurrenceType.HasValue && Model.RecurrenceType != Project001.Models.Entities.RecurrenceType.None)
+                        {
+                            <div class="p-4 bg-blue-50 border border-blue-200 rounded-md">
+                                <h3 class="text-lg font-semibold text-blue-900 mb-2">Recurring Meeting</h3>
+                                <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <dt class="text-sm font-medium text-blue-700">Pattern</dt>
+                                        <dd class="text-sm text-blue-900">@Model.RecurrenceType</dd>
+                                    </div>
+                                    @if (Model.RecurrenceEnd.HasValue)
+                                    {
+                                        <div>
+                                            <dt class="text-sm font-medium text-blue-700">End Date</dt>
+                                            <dd class="text-sm text-blue-900">@Model.RecurrenceEnd.Value.ToString("MMM dd, yyyy")</dd>
+                                        </div>
+                                    }
+                                    @if (Model.RecurringBookings.Any())
+                                    {
+                                        <div class="md:col-span-2">
+                                            <dt class="text-sm font-medium text-blue-700">Related Bookings</dt>
+                                            <dd class="text-sm text-blue-900">@Model.RecurringBookings.Count additional recurring meetings</dd>
+                                        </div>
+                                    }
+                                </dl>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Room Information Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Room Information</h3>
+                        
+                        @if (!string.IsNullOrEmpty(Model.Room.ImageUrl))
+                        {
+                            <img src="@Model.Room.ImageUrl" alt="@Model.Room.Name" class="w-full h-32 object-cover rounded-lg mb-4">
+                        }
+
+                        <h4 class="text-lg font-medium text-gray-900 mb-2">@Model.Room.Name</h4>
+                        
+                        <dl class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <dt class="text-gray-500">Capacity</dt>
+                                <dd class="text-gray-900">@Model.Room.Capacity people</dd>
+                            </div>
+                            @if (!string.IsNullOrEmpty(Model.Room.Location))
+                            {
+                                <div class="flex justify-between">
+                                    <dt class="text-gray-500">Location</dt>
+                                    <dd class="text-gray-900">@Model.Room.Location</dd>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Room.Floor))
+                            {
+                                <div class="flex justify-between">
+                                    <dt class="text-gray-500">Floor</dt>
+                                    <dd class="text-gray-900">@Model.Room.Floor</dd>
+                                </div>
+                            }
+                        </dl>
+
+                        <!-- Equipment -->
+                        <div class="mt-4">
+                            <h5 class="text-sm font-medium text-gray-900 mb-2">Available Equipment</h5>
+                            <div class="space-y-1">
+                                @if (Model.Room.HasProjector)
+                                {
+                                    <div class="flex items-center text-sm text-gray-600">
+                                        <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        Projector
+                                    </div>
+                                }
+                                @if (Model.Room.HasVideoConference)
+                                {
+                                    <div class="flex items-center text-sm text-gray-600">
+                                        <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        Video Conference
+                                    </div>
+                                }
+                                @if (Model.Room.HasWhiteboard)
+                                {
+                                    <div class="flex items-center text-sm text-gray-600">
+                                        <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        Whiteboard
+                                    </div>
+                                }
+                                @if (Model.Room.HasPhone)
+                                {
+                                    <div class="flex items-center text-sm text-gray-600">
+                                        <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        Phone
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <a asp-controller="Rooms" asp-action="Details" asp-route-id="@Model.Room.Id" 
+                               class="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md text-sm text-center block transition-colors duration-200">
+                                View Room Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cancel Booking Modal -->
+<div id="cancelModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Cancel Booking</h3>
+            <form id="cancelForm" method="post" asp-action="Cancel" asp-route-id="@Model.Id">
+                @Html.AntiForgeryToken()
+                <div class="mb-4">
+                    <label for="reason" class="block text-sm font-medium text-gray-700 mb-2">Reason for cancellation (optional)</label>
+                    <textarea name="reason" id="reason" rows="3" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Please provide a reason for cancelling this booking..."></textarea>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="closeCancelModal()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-md transition-colors duration-200">
+                        Cancel
+                    </button>
+                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                        Cancel Booking
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function cancelBooking(bookingId) {
+    document.getElementById('cancelModal').classList.remove('hidden');
+}
+
+function closeCancelModal() {
+    document.getElementById('cancelModal').classList.add('hidden');
+}
+
+// Close modal when clicking outside
+document.getElementById('cancelModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeCancelModal();
+    }
+});
+</script>

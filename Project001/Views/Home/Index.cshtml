@@ -1,0 +1,326 @@
+﻿@model Project001.Models.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = Localizer["Dashboard"];
+}
+
+@if (User.Identity.IsAuthenticated && Model != null)
+{
+    <!-- Dashboard for authenticated users -->
+    <div class="space-y-8">
+        <!-- Welcome Section -->
+        <div class="bg-white shadow rounded-lg p-6">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="ml-4">
+                    <h1 class="text-2xl font-bold text-gray-900">@Localizer["WelcomeBack"], @User.Identity.Name!</h1>
+                    <p class="text-gray-600">@Localizer["ManageBookingsText"]</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <a asp-controller="Bookings" asp-action="Create" class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow duration-200 border-l-4 border-blue-500">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">@Localizer["QuickAction"]</p>
+                        <p class="text-lg font-semibold text-gray-900">@Localizer["BookRoom"]</p>
+                    </div>
+                </div>
+            </a>
+
+            <a asp-controller="Rooms" asp-action="Index" class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow duration-200 border-l-4 border-green-500">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">@Localizer["Explore"]</p>
+                        <p class="text-lg font-semibold text-gray-900">@Localizer["Rooms"]</p>
+                    </div>
+                </div>
+            </a>
+
+            <a asp-controller="Bookings" asp-action="Index" class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow duration-200 border-l-4 border-yellow-500">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">@Localizer["Manage"]</p>
+                        <p class="text-lg font-semibold text-gray-900">@Localizer["MyBookings"]</p>
+                    </div>
+                </div>
+            </a>
+
+            <a asp-controller="Bookings" asp-action="Calendar" class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow duration-200 border-l-4 border-purple-500">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">@Localizer["View"]</p>
+                        <p class="text-lg font-semibold text-gray-900">@Localizer["Calendar"]</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Main Dashboard Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Today's Schedule -->
+            <div class="lg:col-span-2 bg-white shadow rounded-lg">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-900">@Localizer["TodaysSchedule"]</h2>
+                </div>
+                <div class="p-6">
+                    @if (Model.TodaysBookings.Any())
+                    {
+                        <div class="space-y-4">
+                            @foreach (var booking in Model.TodaysBookings)
+                            {
+                                <div class="flex items-center p-4 bg-blue-50 border border-blue-200 rounded-md">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-3 h-3 bg-blue-600 rounded-full"></div>
+                                    </div>
+                                    <div class="ml-4 flex-1">
+                                        <h4 class="text-sm font-medium text-gray-900">@booking.Title</h4>
+                                        <p class="text-sm text-gray-600">@booking.Room.Name</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-sm font-medium text-gray-900">
+                                            @booking.StartDateTime.ToString("h:mm tt") - @booking.EndDateTime.ToString("h:mm tt")
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            @booking.Duration.TotalHours.ToString("F1")h
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-8">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                <path d="M34 40h10v-4a6 6 0 00-10.712-3.714M34 40H14m20 0v-4a9.971 9.971 0 00-.712-3.714M14 40H4v-4a6 6 0 0110.713-3.714M14 40v-4c0-1.313.253-2.566.713-3.714m0 0A10.003 10.003 0 0124 26c4.21 0 7.813 2.602 9.288 6.286M30 14a6 6 0 11-12 0 6 6 0 0112 0zm12 6a4 4 0 11-8 0 4 4 0 018 0zm-28 0a4 4 0 11-8 0 4 4 0 018 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <h3 class="mt-2 text-sm font-medium text-gray-900">@Localizer["NoMeetingsToday"]</h3>
+                            <p class="mt-1 text-sm text-gray-500">@Localizer["FreeScheduleToday"]</p>
+                            <div class="mt-6">
+                                <a asp-controller="Bookings" asp-action="Create" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm transition-colors duration-200">
+                                    @Localizer["BookRoom"]
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="bg-white shadow rounded-lg">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-900">@Localizer["QuickStats"]</h2>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">@Localizer["TotalRooms"]</span>
+                            <span class="text-lg font-semibold text-gray-900">@Model.TotalRooms</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">@Localizer["AvailableNow"]</span>
+                            <span class="text-lg font-semibold text-green-600">@Model.AvailableRooms</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">@Localizer["MyBookingsThisWeek"]</span>
+                            <span class="text-lg font-semibold text-blue-600">@Model.WeeklyBookingsCount</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">@Localizer["PopularTime"]</span>
+                            <span class="text-sm text-gray-900">@Model.PopularTimeSlot</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Bookings & Recent Activity -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Upcoming Bookings -->
+            <div class="bg-white shadow rounded-lg">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-900">@Localizer["UpcomingBookings"]</h2>
+                </div>
+                <div class="p-6">
+                    @if (Model.UpcomingBookings.Any())
+                    {
+                        <div class="space-y-3">
+                            @foreach (var booking in Model.UpcomingBookings)
+                            {
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900">@booking.Title</h4>
+                                        <p class="text-sm text-gray-600">@booking.Room.Name</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-sm text-gray-900">@booking.StartDateTime.ToString("MMM dd")</p>
+                                        <p class="text-xs text-gray-500">@booking.StartDateTime.ToString("h:mm tt")</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="mt-4">
+                            <a asp-controller="Bookings" asp-action="Index" class="text-blue-600 hover:text-blue-900 text-sm font-medium">
+                                @Localizer["ViewAllBookings"]
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-6">
+                            <p class="text-sm text-gray-500">@Localizer["NoUpcomingBookings"]</p>
+                            <div class="mt-4">
+                                <a asp-controller="Bookings" asp-action="Create" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm transition-colors duration-200">
+                                    @Localizer["CreateBooking"]
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white shadow rounded-lg">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-900">@Localizer["RecentActivity"]</h2>
+                </div>
+                <div class="p-6">
+                    @if (Model.RecentActivity.Any())
+                    {
+                        <div class="space-y-3">
+                            @foreach (var booking in Model.RecentActivity.Take(5))
+                            {
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm text-gray-900 truncate">
+                                            <span class="font-medium">@booking.User.FullName</span> booked @booking.Room.Name
+                                        </p>
+                                        <p class="text-xs text-gray-500">@booking.CreatedAt.ToString("MMM dd, h:mm tt")</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-6">
+                            <p class="text-sm text-gray-500">@Localizer["NoRecentActivity"]</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <!-- Landing page for non-authenticated users -->
+    <div class="bg-white">
+        <!-- Hero Section -->
+        <div class="relative overflow-hidden">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="text-center py-16">
+                    <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                        @Localizer["MeetingRoomBooking"]
+                    </h1>
+                    <p class="mt-6 text-lg leading-8 text-gray-600 max-w-2xl mx-auto">
+                        @Localizer["ManageBookingsText"]
+                    </p>
+                    <div class="mt-10 flex items-center justify-center gap-x-6">
+                        <a asp-area="Identity" asp-page="/Account/Register" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md text-lg font-semibold transition-colors duration-200">
+                            @Localizer["GetStarted"]
+                        </a>
+                        <a asp-area="Identity" asp-page="/Account/Login" class="text-gray-600 hover:text-gray-900 text-lg font-semibold transition-colors duration-200">
+                            @Localizer["SignIn"] <span aria-hidden="true">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="py-16 bg-gray-50">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900">
+                        Everything you need to book rooms efficiently
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-600">
+                        Our platform provides all the tools you need for seamless meeting room management.
+                    </p>
+                </div>
+
+                <div class="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <div class="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mb-4">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Real-time Booking</h3>
+                        <p class="text-gray-600">
+                            See room availability in real-time and book instantly. No more double bookings or conflicts.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <div class="flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg mb-4">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Smart Filters</h3>
+                        <p class="text-gray-600">
+                            Find the perfect room based on capacity, equipment, location, and availability.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <div class="flex items-center justify-center w-12 h-12 bg-purple-100 rounded-lg mb-4">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Multi-language</h3>
+                        <p class="text-gray-600">
+                            Full support for English, Thai, and Japanese languages for international teams.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,196 @@
+@model Project001.Models.ViewModels.UserDetailViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["User Details"];
+}
+
+<div class="container mx-auto px-4 py-8">
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">@Localizer["User Details"]</h1>
+        <div class="flex gap-3">
+            <a href="@Url.Action("Index")" class="text-blue-600 hover:text-blue-800">
+                ← @Localizer["Back to Users"]
+            </a>
+            <a href="@Url.Action("Edit", new { id = Model.Id })" class="text-blue-600 hover:text-blue-800">
+                @Localizer["Edit User"]
+            </a>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- User Information -->
+        <div class="lg:col-span-2">
+            <div class="bg-white shadow rounded-lg p-6 mb-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">@Localizer["User Information"]</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">@Localizer["First Name"]</label>
+                        <p class="mt-1 text-sm text-gray-900">@Model.FirstName</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">@Localizer["Last Name"]</label>
+                        <p class="mt-1 text-sm text-gray-900">@Model.LastName</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">@Localizer["Email"]</label>
+                        <p class="mt-1 text-sm text-gray-900">@Model.Email</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">@Localizer["Username"]</label>
+                        <p class="mt-1 text-sm text-gray-900">@Model.UserName</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">@Localizer["Department"]</label>
+                        <p class="mt-1 text-sm text-gray-900">@(Model.Department?.Name ?? Localizer["Not Assigned"].Value)</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">@Localizer["Preferred Language"]</label>
+                        <p class="mt-1 text-sm text-gray-900">
+                            @(Model.PreferredLanguage switch
+                            {
+                                "en" => "English",
+                                "th" => "ไทย",
+                                "ja" => "日本語",
+                                _ => Model.PreferredLanguage
+                            })
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">@Localizer["Status"]</label>
+                        <p class="mt-1">
+                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full @(Model.IsActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800")">
+                                @(Model.IsActive ? Localizer["Active"] : Localizer["Inactive"])
+                            </span>
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">@Localizer["Roles"]</label>
+                        <div class="mt-1 flex flex-wrap gap-1">
+                            @if (Model.Roles.Any())
+                            {
+                                @foreach (var role in Model.Roles)
+                                {
+                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                                        @role
+                                    </span>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-sm text-gray-500">@Localizer["No roles assigned"]</p>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">@Localizer["Created At"]</label>
+                        <p class="mt-1 text-sm text-gray-900">@Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">@Localizer["Updated At"]</label>
+                        <p class="mt-1 text-sm text-gray-900">@Model.UpdatedAt.ToString("yyyy-MM-dd HH:mm")</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings -->
+            @if (Model.RecentBookings.Any())
+            {
+                <div class="bg-white shadow rounded-lg p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">@Localizer["Recent Bookings"] (@Localizer["Last 30 Days"])</h2>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        @Localizer["Room"]
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        @Localizer["Date & Time"]
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        @Localizer["Status"]
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                @foreach (var booking in Model.RecentBookings.Take(10))
+                                {
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            @booking.Room?.Name
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            @booking.StartDateTime.ToString("yyyy-MM-dd HH:mm") - @booking.EndDateTime.ToString("HH:mm")
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full @(booking.Status switch
+                                            {
+                                                Project001.Models.Entities.BookingStatus.Confirmed => "bg-green-100 text-green-800",
+                                                Project001.Models.Entities.BookingStatus.Pending => "bg-yellow-100 text-yellow-800",
+                                                Project001.Models.Entities.BookingStatus.Cancelled => "bg-red-100 text-red-800",
+                                                Project001.Models.Entities.BookingStatus.Completed => "bg-blue-100 text-blue-800",
+                                                _ => "bg-gray-100 text-gray-800"
+                                            })">
+                                                @booking.Status
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Booking Statistics -->
+        <div class="lg:col-span-1">
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">@Localizer["Booking Statistics"]</h2>
+                
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                        <div>
+                            <p class="text-sm font-medium text-blue-900">@Localizer["Total Bookings"]</p>
+                            <p class="text-2xl font-bold text-blue-600">@Model.BookingStats.TotalBookings</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                        <div>
+                            <p class="text-sm font-medium text-green-900">@Localizer["Upcoming"]</p>
+                            <p class="text-2xl font-bold text-green-600">@Model.BookingStats.UpcomingBookings</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">@Localizer["Completed"]</p>
+                            <p class="text-2xl font-bold text-gray-600">@Model.BookingStats.CompletedBookings</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                        <div>
+                            <p class="text-sm font-medium text-red-900">@Localizer["Cancelled"]</p>
+                            <p class="text-2xl font-bold text-red-600">@Model.BookingStats.CancelledBookings</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

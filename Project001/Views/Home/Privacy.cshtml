@@ -1,0 +1,9 @@
+﻿@using Microsoft.Extensions.Localization
+@using Project001.Resources
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["PrivacyPolicy"];
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>@Localizer["PrivacyPolicyText"]</p>

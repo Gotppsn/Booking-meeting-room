@@ -1,0 +1,156 @@
+@model Project001.Models.Entities.Room
+
+@{
+    ViewData["Title"] = "Create Room";
+}
+
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h1 class="text-2xl font-semibold text-gray-900">Create New Room</h1>
+        </div>
+
+        <form asp-action="Create" class="p-6">
+            <div asp-validation-summary="ModelOnly" class="text-red-600 mb-4"></div>
+            
+            <div class="space-y-6">
+                <!-- Basic Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label asp-for="Name" class="block text-sm font-medium text-gray-700 mb-1">Room Name</label>
+                        <input asp-for="Name" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        <span asp-validation-for="Name" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <div>
+                        <label asp-for="Capacity" class="block text-sm font-medium text-gray-700 mb-1">Capacity</label>
+                        <input asp-for="Capacity" type="number" min="1" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        <span asp-validation-for="Capacity" class="text-red-600 text-sm"></span>
+                    </div>
+                </div>
+
+                <!-- Multi-language Names -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label asp-for="NameTh" class="block text-sm font-medium text-gray-700 mb-1">Room Name (Thai)</label>
+                        <input asp-for="NameTh" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        <span asp-validation-for="NameTh" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <div>
+                        <label asp-for="NameJa" class="block text-sm font-medium text-gray-700 mb-1">Room Name (Japanese)</label>
+                        <input asp-for="NameJa" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        <span asp-validation-for="NameJa" class="text-red-600 text-sm"></span>
+                    </div>
+                </div>
+
+                <!-- Location Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label asp-for="Location" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                        <input asp-for="Location" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        <span asp-validation-for="Location" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <div>
+                        <label asp-for="Floor" class="block text-sm font-medium text-gray-700 mb-1">Floor</label>
+                        <input asp-for="Floor" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        <span asp-validation-for="Floor" class="text-red-600 text-sm"></span>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label asp-for="Description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <textarea asp-for="Description" rows="3" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+                    <span asp-validation-for="Description" class="text-red-600 text-sm"></span>
+                </div>
+
+                <!-- Multi-language Descriptions -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label asp-for="DescriptionTh" class="block text-sm font-medium text-gray-700 mb-1">Description (Thai)</label>
+                        <textarea asp-for="DescriptionTh" rows="3" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+                        <span asp-validation-for="DescriptionTh" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <div>
+                        <label asp-for="DescriptionJa" class="block text-sm font-medium text-gray-700 mb-1">Description (Japanese)</label>
+                        <textarea asp-for="DescriptionJa" rows="3" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+                        <span asp-validation-for="DescriptionJa" class="text-red-600 text-sm"></span>
+                    </div>
+                </div>
+
+                <!-- Equipment -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Equipment & Amenities</label>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <label class="flex items-center">
+                            <input asp-for="HasProjector" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700">Projector</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input asp-for="HasVideoConference" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700">Video Conference</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input asp-for="HasWhiteboard" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700">Whiteboard</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input asp-for="HasPhone" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700">Phone</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input asp-for="HasComputer" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700">Computer</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Additional Equipment -->
+                <div>
+                    <label asp-for="Equipment" class="block text-sm font-medium text-gray-700 mb-1">Additional Equipment</label>
+                    <textarea asp-for="Equipment" rows="2" placeholder="List any additional equipment available in this room..." class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+                    <span asp-validation-for="Equipment" class="text-red-600 text-sm"></span>
+                </div>
+
+                <!-- Image URL and Rate -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label asp-for="ImageUrl" class="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+                        <input asp-for="ImageUrl" type="url" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        <span asp-validation-for="ImageUrl" class="text-red-600 text-sm"></span>
+                    </div>
+
+                    <div>
+                        <label asp-for="HourlyRate" class="block text-sm font-medium text-gray-700 mb-1">Hourly Rate ($)</label>
+                        <input asp-for="HourlyRate" type="number" step="0.01" min="0" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        <span asp-validation-for="HourlyRate" class="text-red-600 text-sm"></span>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div>
+                    <label asp-for="Status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <select asp-for="Status" asp-items="Html.GetEnumSelectList<Project001.Models.Entities.RoomStatus>()" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </select>
+                    <span asp-validation-for="Status" class="text-red-600 text-sm"></span>
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-4 mt-8 pt-6 border-t border-gray-200">
+                <a asp-action="Index" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                    Cancel
+                </a>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                    Create Room
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

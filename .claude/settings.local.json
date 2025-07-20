@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(dotnet restore:*)",
+      "Bash(dotnet ef migrations:*)",
+      "Bash(find:*)",
+      "Bash(dotnet aspnet-codegenerator:*)",
+      "Bash(dotnet build)",
+      "Bash(dotnet ef database drop:*)",
+      "Bash(xmllint:*)",
+      "Bash(grep:*)",
+      "Bash(dotnet run:*)",
+      "Bash(rm:*)",
+      "Bash(ls:*)",
+      "Bash(rg:*)",
+      "Bash(dotnet clean:*)"
+    ],
+    "deny": []
+  }
+}
